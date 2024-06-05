@@ -7,3 +7,6 @@ i wanted to make a chrome extension out of this, the page you get when you click
 any ideas please let me know.
 
 i know my code is shit, but atleast im transparent about it.
+
+take a look at the current version [at] http://timeisrunning.vercel.app
+

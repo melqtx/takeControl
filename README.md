@@ -11,8 +11,6 @@ its over,
 
 i know my code is shit, but atleast im transparent about it.
 
-<<<<<<< HEAD
-=======
 take a look at the current version [at] http://timeisrunning.vercel.app
->>>>>>> fe282cc0a60f294af386cf4ee370ff97c7c75484
+
 

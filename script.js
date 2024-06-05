@@ -2,13 +2,12 @@
 'use strict';
 
 var trs = 90, tds = 52, tbl = d.createElement('table'),
-    calculateBtn = d.getElementById('calculate'),
     birthdateInput = d.getElementById('birthdate'),
     weeksLivedSpan = d.getElementById('weeksLived'),
     weeksRemainingSpan = d.getElementById('weeksRemaining'),
     tableContainer = d.getElementById('table-container');
 
-
+// Build table
 for (var c = 0; c < trs; c++) {
   var tr = d.createElement('tr');
   for (var i = 0; i < tds; i++) {
@@ -21,9 +20,9 @@ for (var c = 0; c < trs; c++) {
 
 tableContainer.appendChild(tbl);
 
-
-calculateBtn.addEventListener('click', function() {
-  var birthdate = new Date(birthdateInput.value);
+// Calculate weeks on date change
+birthdateInput.addEventListener('change', function() {
+  var birthdate = new Date(this.value);
   var now = new Date();
   var weeksLived =
       Math.floor(Math.abs(birthdate - now) / (1000 * 60 * 60 * 24 * 7));
@@ -32,7 +31,7 @@ calculateBtn.addEventListener('click', function() {
   weeksLivedSpan.textContent = weeksLived;
   weeksRemainingSpan.textContent = weeksRemaining;
 
-
+  // Color past weeks
   var fill = d.querySelectorAll('td');
   for (var c = 0; c < weeksLived; c++) {
     fill[c].classList.add('past');
@@ -42,10 +41,5 @@ calculateBtn.addEventListener('click', function() {
       fill[c].classList.add('teenage');
     }
   }
-});
-
-
-birthdateInput.addEventListener('click', function() {
-  this.showPicker();
 });
 }(document));

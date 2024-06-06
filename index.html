@@ -3,31 +3,48 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your-LIFE</title>
+  <title>Chronicle</title>
+  <link rel="icon" type="image/png" href="/assets/calend_main.png">
+  <link rel="icon" type="image/png" href="/assets/icon2.ico" sizes="32x32">
+  <link rel="icon" type="image/png" href="/assets/icon1.png" sizes="96x96">
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
   <div id="container">
-    <h1>Your-LIFE</h1>
+    <h1><a href="javascript:location.reload()">Chronicle</a></h1>
     <div id="info">
       <label for="birthdate">Enter your birthdate:</label>
-      <input type="date" id="birthdate">
-      <p>Weeks lived: <span id="weeksLived"></span></p>
-      <p>Weeks remaining until you DIE: <span id="weeksRemaining"></span></p>
+      <div class="input-container">
+        <input type="text" id="birthdate" placeholder="YYYY-MM-DD">
+        <button id="calendar-btn">📅</button>
+        <button id="submit-btn">➡️</button>
+      </div>
     </div>
     
-    <div id="table-container"></div>
-    
-    <footer>
-      <p>[ This space is left intentionally blank. ]</p>
-      <p>Made with ❤️ by Mel</p>
-    </footer>
+    <div id="result" style="display: none;">
+      <div class="table-wrapper">
+        <div id="table-container"></div>
+        <div class="label-container">
+          <p>Weeks lived: <span id="weeksLived"></span></p>
+          <p>Weeks remaining until you DIE: <span id="weeksRemaining"></span></p>
+        </div>
+      </div>
+      <footer>
+        <p>go touch grass anon</p>
+        <p>Made with ❤️ by Mel</p>
+      </footer>
+    </div>
   </div>
   
-  <noscript>
-    <p>This project requires JavaScript</p>
-  </noscript>
-
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span class="close">&times;</span>
+      <div id="popup-table-container"></div>
+      <p id="popup-weeks-left"></p>
+      <p id="popup-year-percentage"></p>
+    </div>
+  </div>
+  
   <script src="script.js"></script>
 </body>
 </html>

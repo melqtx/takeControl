@@ -13,6 +13,7 @@ var trs = 90, tds = 52, tbl = d.createElement('table'),
     popupTableContainer = d.getElementById('popup-table-container'),
     popupWeeksLeft = d.getElementById('popup-weeks-left'),
     popupYearPercentage = d.getElementById('popup-year-percentage'),
+    popupCurrentYearWeeks = d.getElementById('popup-current-year-weeks'),
     closeBtn = d.getElementsByClassName('close')[0];
 
 function handleBirthdateChange() {
@@ -50,21 +51,34 @@ function calculateResult(birthdate) {
     var tr = d.createElement('tr');
     for (var i = 0; i < tds; i++) {
       var td = d.createElement('td');
-      td.setAttribute('data-weeks', (c * tds) + i);
-      if ((c * tds) + i < weeksLived) {
+      var weekNumber = (c * tds) + i;
+      var weekYear =
+          new Date(birthdate.getTime() + weekNumber * 7 * 24 * 60 * 60 * 1000)
+              .getFullYear();
+      td.setAttribute(
+          'data-week', 'Week ' + weekNumber + ' (' + weekYear + ')');
+      td.setAttribute('data-year', weekYear);
+      if (weekNumber < weeksLived) {
         td.classList.add('past');
-        if ((c * tds) + i < 2 * 52) {
+        if (weekNumber < 2 * 52) {
           td.classList.add('infant');
-        } else if ((c * tds) + i < 13 * 52) {
+        } else if (weekNumber < 13 * 52) {
           td.classList.add('teenage');
         }
       }
-      if ((c * tds) + i === weeksLived) {
+      if (weekNumber === weeksLived) {
         td.classList.add('current');
       }
-
-      td.addEventListener('click', function() {
-        showPopup(birthdate);
+      td.addEventListener('mouseover', function() {
+        this.classList.add('hover');
+        this.style.transform = 'scale(1.05)';
+      });
+      td.addEventListener('mouseout', function() {
+        this.classList.remove('hover');
+        this.style.transform = 'scale(1)';
+      });
+      td.addEventListener('click', function(event) {
+        showPopup(birthdate, event.target.getAttribute('data-year'));
       });
       tr.appendChild(td);
     }
@@ -73,47 +87,74 @@ function calculateResult(birthdate) {
   tableContainer.appendChild(tbl);
 }
 
-function showPopup(birthdate) {
+function showPopup(birthdate, selectedYear) {
   var now = new Date();
   var currentYear = now.getFullYear();
-  var nextBirthday = new Date(birthdate);
-  nextBirthday.setFullYear(currentYear);
+  var previousBirthday = new Date(birthdate);
+  previousBirthday.setFullYear(currentYear - 1);
 
-  if (nextBirthday < now) {
-    nextBirthday.setFullYear(currentYear + 1);
-  }
-
-  var weeksUntilNextBirthday =
-      Math.floor((nextBirthday - now) / (1000 * 60 * 60 * 24 * 7));
-  var weeksFromLastBirthday = 52 - weeksUntilNextBirthday;
-  var yearPercentage = Math.round((weeksFromLastBirthday / 52) * 100);
+  var weeksFromPreviousBirthday =
+      Math.floor((now - previousBirthday) / (1000 * 60 * 60 * 24 * 7));
+  var yearPercentage = Math.round((weeksFromPreviousBirthday / 52) * 100);
 
   popupTableContainer.innerHTML = '';
-  for (var i = 0; i < 13; i++) {
-    var popupTr = d.createElement('td');
-    for (var j = 0; j < 2; j++) {
-      var popupTd = d.createElement('tr');
+  var popupTable = d.createElement('table');
+  popupTable.classList.add('popup-table');
+
+  for (var i = 0; i < 4; i++) {
+    var popupTr = d.createElement('tr');
+    for (var j = 0; j < 13; j++) {
+      var popupTd = d.createElement('td');
+      var weekIndex = i * 13 + j;
+      var weekDate = new Date(previousBirthday);
+      weekDate.setDate(weekDate.getDate() + weekIndex * 7);
+
+      if (weekDate < now) {
+        popupTd.classList.add('past');
+      } else if (weekDate > now) {
+        popupTd.classList.add('future');
+      } else {
+        popupTd.classList.add('current');
+      }
+
       popupTr.appendChild(popupTd);
     }
-    popupTableContainer.appendChild(popupTr);
+    popupTable.appendChild(popupTr);
   }
 
+  popupTableContainer.appendChild(popupTable);
+
+  var totalWeeks = (currentYear - birthdate.getFullYear()) * 52;
+  var popupTotalWeeks = d.createElement('p');
+
+  popupTotalWeeks.classList.add('popup-total-weeks');
+  popup.appendChild(popupTotalWeeks);
+
   popupWeeksLeft.textContent =
-      'Weeks remaining until your next birthday: ' + weeksUntilNextBirthday;
+      'Weeks passed since previous birthday: ' + weeksFromPreviousBirthday;
 
   popupYearPercentage.textContent =
       'Percentage of the year passed: ' + yearPercentage + '%';
+
+  var currentYearWeeks = Math.floor(
+      (now - new Date(birthdate.getFullYear(), 0, 1)) /
+      (1000 * 60 * 60 * 24 * 7));
+  popupCurrentYearWeeks.textContent =
+      'Current year in weeks from birthday: ' + currentYearWeeks;
+  popupCurrentYearWeeks.style.color = 'orange';
 
   popup.style.display = 'block';
 }
 
 closeBtn.addEventListener('click', function() {
   popup.style.display = 'none';
+  popup.innerHTML = '';
 });
 
 window.addEventListener('click', function(event) {
   if (event.target === popup) {
     popup.style.display = 'none';
+    popup.innerHTML = '';
   }
 });
 }(document));

@@ -62,6 +62,26 @@ td {
   border-radius: 3px;
   background-color: #333;
   position: relative;
+  transition: border-color 0.3s ease;
+}
+
+td::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+  pointer-events: none;
+}
+
+td:hover::before {
+  border-color: #ffffff;
+  transition-delay: 0.01s;
+  
 }
 
 .past {
@@ -119,6 +139,34 @@ td {
   position: relative;
   border-radius: 5px;
   animation: popupFadeIn 0.5s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.popup-table td {
+  width: calc(100% / 13);
+  height: 20px;
+  border: 1px solid #333;
+  background-color: #c5a5cf;
+}
+
+.popup-table td.past {
+  background-color: #4e79a7;
+}
+
+.popup-table td.current {
+  background-color: #47966e;
+}
+
+.popup-table td.future {
+  background-color: #333;
 }
 
 @keyframes popupFadeIn {
@@ -148,18 +196,39 @@ td {
 }
 
 #popup-table-container {
-  display: grid;
-  grid-template-columns: repeat(13, 1fr);
-  gap: 5px;
   margin-bottom: 20px;
 }
 
-#popup-table-container td {
+.popup-table {
+  border-collapse: separate;
+  border-spacing: 4px;
+}
+
+.popup-table td {
   width: 20px;
   height: 20px;
   border-radius: 5px;
   background-color: #c5a5cf;
 }
+
+.popup-table td.past {
+  background-color: #4e79a7;
+}
+
+.popup-table td.current {
+  background-color: #47966e;
+}
+
+.popup-table td.future {
+  background-color: #333;
+}
+
+.popup-total-weeks {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 
 footer {
   text-align: center;

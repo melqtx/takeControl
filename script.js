@@ -140,7 +140,7 @@ function showPopup(birthdate, selectedYear) {
       (now - new Date(birthdate.getFullYear(), 0, 1)) /
       (1000 * 60 * 60 * 24 * 7));
   popupCurrentYearWeeks.textContent =
-      'Current year in weeks from birthday: ' + currentYearWeeks;
+      'Total weeks you have lived for: ' + currentYearWeeks;
   popupCurrentYearWeeks.style.color = 'orange';
 
   popup.style.display = 'block';

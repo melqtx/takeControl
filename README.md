@@ -11,6 +11,6 @@ its over,
 
 i know my code is shit, but atleast im transparent about it.
 
-take a look at the current version [at] http://timeisrunning.vercel.app
+take a look at the current version [at] https://chro-nicle.vercel.app
 
 

@@ -90,12 +90,16 @@ function calculateResult(birthdate) {
 function showPopup(birthdate, selectedYear) {
   var now = new Date();
   var currentYear = now.getFullYear();
-  var previousBirthday = new Date(birthdate);
-  previousBirthday.setFullYear(currentYear - 1);
+  var nextBirthday = new Date(birthdate);
+  nextBirthday.setFullYear(currentYear);
 
-  var weeksFromPreviousBirthday =
-      Math.floor((now - previousBirthday) / (1000 * 60 * 60 * 24 * 7));
-  var yearPercentage = Math.round((weeksFromPreviousBirthday / 52) * 100);
+  if (nextBirthday < now) {
+    nextBirthday.setFullYear(currentYear + 1);
+  }
+
+  var weeksUntilNextBirthday =
+      Math.ceil((nextBirthday - now) / (1000 * 60 * 60 * 24 * 7));
+  var yearPercentage = Math.round((weeksUntilNextBirthday / 52) * 100);
 
   popupTableContainer.innerHTML = '';
   var popupTable = d.createElement('table');
@@ -106,8 +110,8 @@ function showPopup(birthdate, selectedYear) {
     for (var j = 0; j < 13; j++) {
       var popupTd = d.createElement('td');
       var weekIndex = i * 13 + j;
-      var weekDate = new Date(previousBirthday);
-      weekDate.setDate(weekDate.getDate() + weekIndex * 7);
+      var weekDate = new Date(nextBirthday);
+      weekDate.setDate(weekDate.getDate() - (52 - weekIndex) * 7);
 
       if (weekDate < now) {
         popupTd.classList.add('past');
@@ -126,15 +130,14 @@ function showPopup(birthdate, selectedYear) {
 
   var totalWeeks = (currentYear - birthdate.getFullYear()) * 52;
   var popupTotalWeeks = d.createElement('p');
-
+  popupTotalWeeks.textContent = 'Total weeks lived: ' + totalWeeks;
   popupTotalWeeks.classList.add('popup-total-weeks');
   popup.appendChild(popupTotalWeeks);
 
-  popupWeeksLeft.textContent =
-      'Weeks passed since previous birthday: ' + weeksFromPreviousBirthday;
+  popupWeeksLeft.textContent = 'Weeks remaining: ' + weeksUntilNextBirthday;
 
   popupYearPercentage.textContent =
-      'Percentage of the year passed: ' + yearPercentage + '%';
+      'Year Percent Spent (doing nothing): ' + (100 - yearPercentage) + '%';
 
   var currentYearWeeks = Math.floor(
       (now - new Date(birthdate.getFullYear(), 0, 1)) /

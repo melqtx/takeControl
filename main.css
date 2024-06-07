@@ -1,4 +1,3 @@
-
 body {
   background-color: #111;
   color: #fff;
@@ -11,11 +10,14 @@ body {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
   font-family: 'Space Mono', monospace;
-  text-align: left;
+  text-align: center;
   margin-bottom: 20px;
 }
 
@@ -29,20 +31,63 @@ h1 a {
   margin-bottom: 20px;
 }
 
-#info label {
-  display: block;
-  margin-bottom: 10px;
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #222;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.5s ease;
 }
 
-#info input[type="date"],
-#info input[type="text"] {
-  padding: 8px;
+#birthdate {
+  padding: 10px;
   font-size: 16px;
-  border-radius: 4px;
   border: none;
+  border-radius: 5px;
   background-color: #333;
   color: #fff;
-  margin-bottom: 10px;
+  margin-right: 10px;
+  flex: 1;
+}
+
+#calendar-btn {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #444;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+#submit-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#submit-btn:hover {
+  background-color: #45a049;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 #table-container {
@@ -81,7 +126,6 @@ td::before {
 td:hover::before {
   border-color: #ffffff;
   transition-delay: 0.01s;
-  
 }
 
 .past {
@@ -228,7 +272,6 @@ td:hover::before {
   font-size: 18px;
   font-weight: bold;
 }
-
 
 footer {
   text-align: center;

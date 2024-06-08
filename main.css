@@ -6,6 +6,19 @@ body {
   padding: 0;
 }
 
+h1 {
+  font-family: 'Space Mono', monospace;
+  text-align: left;
+  margin-bottom: 20px;
+  padding-left: 50px;
+  padding-top: 10px;
+}
+
+h1 a {
+  color: #fff;
+  text-decoration: none;
+}
+
 #container {
   max-width: 800px;
   margin: 0 auto;
@@ -13,17 +26,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-h1 {
-  font-family: 'Space Mono', monospace;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-h1 a {
-  color: #fff;
-  text-decoration: none;
 }
 
 #info {
@@ -59,7 +61,7 @@ h1 a {
   border: none;
   border-radius: 5px;
   background-color: #444;
-  color: #fff;
+  color: #1f231f;
   cursor: pointer;
   margin-right: 10px;
 }
@@ -69,14 +71,14 @@ h1 a {
   font-size: 16px;
   border: none;
   border-radius: 5px;
-  background-color: #4caf50;
+  background-color: #3b3f3b;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 #submit-btn:hover {
-  background-color: #45a049;
+  background-color: #ffffff;
 }
 
 @keyframes fadeIn {
@@ -192,6 +194,7 @@ td:hover::before {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  
 }
 
 .popup-table td {
@@ -230,6 +233,7 @@ td:hover::before {
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
+  
 }
 
 .close:hover,
@@ -267,10 +271,15 @@ td:hover::before {
   background-color: #333;
 }
 
-.popup-total-weeks {
-  margin-top: 20px;
-  font-size: 18px;
+#popup-year-progress {
+  font-size: 24px;
   font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#popup-weeks-left {
+  font-size: 14px;
+  margin-top: 10px;
 }
 
 footer {

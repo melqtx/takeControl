@@ -12,8 +12,7 @@ var trs = 90, tds = 52, tbl = d.createElement('table'),
     popup = d.getElementById('popup'),
     popupTableContainer = d.getElementById('popup-table-container'),
     popupWeeksLeft = d.getElementById('popup-weeks-left'),
-    popupYearPercentage = d.getElementById('popup-year-percentage'),
-    popupCurrentYearWeeks = d.getElementById('popup-current-year-weeks'),
+    popupYearProgress = d.getElementById('popup-year-progress'),
     closeBtn = d.getElementsByClassName('close')[0];
 
 function handleBirthdateChange() {
@@ -99,7 +98,7 @@ function showPopup(birthdate, selectedYear) {
 
   var weeksUntilNextBirthday =
       Math.ceil((nextBirthday - now) / (1000 * 60 * 60 * 24 * 7));
-  var yearPercentage = Math.round((weeksUntilNextBirthday / 52) * 100);
+  var yearProgress = Math.round((1 - (weeksUntilNextBirthday / 52)) * 100);
 
   popupTableContainer.innerHTML = '';
   var popupTable = d.createElement('table');
@@ -128,36 +127,23 @@ function showPopup(birthdate, selectedYear) {
 
   popupTableContainer.appendChild(popupTable);
 
-  var totalWeeks = (currentYear - birthdate.getFullYear()) * 52;
-  var popupTotalWeeks = d.createElement('p');
-  popupTotalWeeks.textContent = 'Total weeks lived: ' + totalWeeks;
-  popupTotalWeeks.classList.add('popup-total-weeks');
-  popup.appendChild(popupTotalWeeks);
+  popupYearProgress.textContent = 'Year Progress: ' + yearProgress + '%';
+  popupYearProgress.style.fontFamily = 'Space Mono, monospace';
 
-  popupWeeksLeft.textContent = 'Weeks remaining: ' + weeksUntilNextBirthday;
-
-  popupYearPercentage.textContent =
-      'Year Percent Spent (doing nothing): ' + (100 - yearPercentage) + '%';
-
-  var currentYearWeeks = Math.floor(
-      (now - new Date(birthdate.getFullYear(), 0, 1)) /
-      (1000 * 60 * 60 * 24 * 7));
-  popupCurrentYearWeeks.textContent =
-      'Total weeks you have lived for: ' + currentYearWeeks;
-  popupCurrentYearWeeks.style.color = 'orange';
+  popupWeeksLeft.textContent =
+      'Weeks until next birthday: ' + weeksUntilNextBirthday;
+  popupWeeksLeft.style.fontSize = '14px';
 
   popup.style.display = 'block';
 }
 
 closeBtn.addEventListener('click', function() {
   popup.style.display = 'none';
-  popup.innerHTML = '';
 });
 
 window.addEventListener('click', function(event) {
   if (event.target === popup) {
     popup.style.display = 'none';
-    popup.innerHTML = '';
   }
 });
 }(document));

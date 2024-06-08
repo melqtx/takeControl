@@ -130,8 +130,7 @@ function showPopup(birthdate, selectedYear) {
   popupYearProgress.textContent = 'Year Progress: ' + yearProgress + '%';
   popupYearProgress.style.fontFamily = 'Space Mono, monospace';
 
-  popupWeeksLeft.textContent =
-      'Weeks until next birthday: ' + weeksUntilNextBirthday;
+  popupWeeksLeft.textContent = 'Weeks left: ' + weeksUntilNextBirthday;
   popupWeeksLeft.style.fontSize = '14px';
 
   popup.style.display = 'block';

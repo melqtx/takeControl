@@ -19,9 +19,11 @@ function handleBirthdateChange() {
   var birthdate = new Date(birthdateInput.value);
   if (isNaN(birthdate)) {
     resultContainer.style.display = 'none';
+    document.getElementById('blog').style.display = 'block';
   } else {
     calculateResult(birthdate);
     resultContainer.style.display = 'block';
+    document.getElementById('blog').style.display = 'none';
   }
 }
 
